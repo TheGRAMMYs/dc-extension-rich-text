@@ -7,6 +7,6 @@ build:
     build:
       - yarn build
 run: 
-  command: cd packages/extension && yarn start
+  command: yarn --cwd packages/extension start
   network:
     port: 3000
