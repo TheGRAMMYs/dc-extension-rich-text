@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "apprunner:start": "yarn install && yarn build && yarn --cwd packages/extension start"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
