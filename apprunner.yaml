@@ -6,6 +6,5 @@ build:
       - yarn install
     build:
       - yarn build
-      - cd packages/extension
 run: 
-  command: yarn start
+  command: cd packages/extension && yarn start
