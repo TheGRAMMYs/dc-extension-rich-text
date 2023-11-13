@@ -1,0 +1,11 @@
+version: 1.0
+runtime: nodejs16
+build:
+  commands:
+    pre-build:
+      - yarn install
+    build:
+      - yarn build
+      - cd packages/extension
+run: 
+  command: yarn start
