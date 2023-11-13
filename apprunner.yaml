@@ -8,3 +8,5 @@ build:
       - yarn build
 run: 
   command: cd packages/extension && yarn start
+  network:
+    port: 3000
