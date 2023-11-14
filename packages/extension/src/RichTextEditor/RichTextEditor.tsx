@@ -194,6 +194,24 @@ const RichTextEditor: React.SFC<RichTextEditorProps> = (
     [language, setToolbarState]
   );
 
+  const link = language.schema.marks.link
+  const spec = link.spec
+  
+  link.attrs["target"] = {
+    default: null,
+    hasDefault: true
+  }
+
+  spec.attrs = {
+    href: {},
+    title: {default: null},
+    target: {default: null}
+  }
+
+  spec.toDOM = (node: any) => { 
+    let {href, title, target} = node.attrs; return ["a", {href, title, target }, 0] 
+  }
+
   return (
     <RichtextEditorContext.Provider value={editorContext}>
       <div className={classes.root}>

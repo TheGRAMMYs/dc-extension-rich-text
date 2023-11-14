@@ -40,6 +40,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "apprunner:start": "yarn --cwd ../../ build && yarn start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
