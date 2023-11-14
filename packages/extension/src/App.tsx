@@ -102,30 +102,29 @@ export default class App extends React.Component<{}, AppState> {
 
   public render(): React.ReactElement {
     const { connected, value, sdk, hub } = this.state;
-
     return (
       <div className="App">
-        {connected && sdk ? (
+        {/* {connected && sdk ? ( */}
           <div>
             {withTheme(
               <ThemeProvider theme={theme}>
-                <SdkContext.Provider value={{ sdk }}>
-                  <HubContext.Provider value={{ hub }}>
+                {/* <SdkContext.Provider value={{ sdk }}> */}
+                  {/* <HubContext.Provider value={{ hub }}> */}
                     <RichTextDialogsContainer params={this.state.params}>
                       <EditorRichTextField
                         onChange={this.handleValueChange}
                         value={value}
-                        schema={sdk.field.schema}
+                        schema={"sdk.field.schema"}
                       />
                     </RichTextDialogsContainer>
-                  </HubContext.Provider>
-                </SdkContext.Provider>
+                  {/* </HubContext.Provider> */}
+                {/* </SdkContext.Provider> */}
               </ThemeProvider>
             )}
           </div>
-        ) : (
+        {/* ) : (
           <div>&nbsp;</div>
-        )}
+        )} */}
       </div>
     );
   }
