@@ -123,6 +123,7 @@ export function editLink(
       const newAttrs = {
         href: linkValue.href,
         title: linkValue.title === "" ? undefined : linkValue.title,
+        target: linkValue.target === "" ? undefined : linkValue.target,
       };
 
       if (marks.length > 0) {

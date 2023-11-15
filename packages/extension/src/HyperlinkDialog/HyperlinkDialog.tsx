@@ -1,11 +1,13 @@
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
   FormHelperText,
+  FormLabel,
   TextField,
 } from "@material-ui/core";
 import React from "react";
@@ -31,6 +33,7 @@ const HyperlinkDialog: React.SFC<HyperlinkDialogProps> = (
   const [value, setValue] = React.useState<Hyperlink>({
     href: "",
     title: "",
+    target: ""
   });
 
   const [lastValue, setLastValue] = React.useState<Hyperlink>();
@@ -59,6 +62,7 @@ const HyperlinkDialog: React.SFC<HyperlinkDialogProps> = (
     setValue({
       href: "",
       title: "",
+      target: ""
     });
     setLastValue(undefined);
   };
@@ -123,6 +127,15 @@ const HyperlinkDialog: React.SFC<HyperlinkDialogProps> = (
           />
           <FormHelperText>Example: Black Friday Sale</FormHelperText>
         </FormControl>
+        
+        <div className="link-target-container">
+          <FormLabel>Opens in new tab?</FormLabel>
+          <div className="check">
+            <Checkbox value={'_blank'} checked={!!value?.target} onChange={(event) => handleInputChanged("target", value?.target ? '' : event.target.value)}/>
+            <FormHelperText>Mark this box as checked if you'd like this CTA to open a new tab in the user's browser. Good for off site links.</FormHelperText>
+          </div>
+        </div>
+
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClear} color="primary">
