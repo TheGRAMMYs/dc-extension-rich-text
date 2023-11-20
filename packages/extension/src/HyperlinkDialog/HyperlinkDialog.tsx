@@ -14,6 +14,8 @@ import React from "react";
 
 import { Hyperlink } from "@dc-extension-rich-text/common";
 
+const BLANK_MARKDOWN = ":blank:"
+
 interface HyperlinkDialogProps {
   open: boolean;
   onClose: () => void;
@@ -82,9 +84,26 @@ const HyperlinkDialog: React.SFC<HyperlinkDialogProps> = (
     onClose();
   }, [onClose]);
 
+  const changeMarkdown = (value: Hyperlink): Hyperlink => {
+    if (!value.target && value.href.startsWith(BLANK_MARKDOWN)) {
+      return {
+        ...value,
+        href: value.href.replace(BLANK_MARKDOWN, "")
+      }
+    }
+    if (value.target && !value.href.startsWith(BLANK_MARKDOWN)) {
+      return {
+        ...value,
+        href: `${BLANK_MARKDOWN}${value.href}`
+      }
+    }
+    return value
+  }
+
   const handleSubmit = React.useCallback(() => {
     reset();
-    onSubmit(value);
+    const _value = changeMarkdown(value)
+    onSubmit(_value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, setValue, onSubmit]);
 
@@ -106,7 +125,7 @@ const HyperlinkDialog: React.SFC<HyperlinkDialogProps> = (
             type="input"
             required={true}
             fullWidth={true}
-            value={value.href}
+            value={value.href?.replace(BLANK_MARKDOWN, "")}
             onChange={(event) => handleInputChanged("href", event.target.value)}
           />
           <FormHelperText>
