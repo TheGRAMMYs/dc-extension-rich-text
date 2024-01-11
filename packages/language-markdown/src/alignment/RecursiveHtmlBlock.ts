@@ -73,9 +73,11 @@ const attrName = "[a-zA-Z_:][a-zA-Z0-9:._-]*";
 const unquoted = "[^\"'=<>`\\x00-\\x20]+";
 const singleQuoted = "'[^']*'";
 const doubleQuoted = '"[^"]*"';
+const smartSingleQuoted = "’(?:[^’]+|’’)*’";
+const smartDoubleQuoted = "“(?:[^”]+|””)*”";
 
 const attrValue =
-  "(?:" + unquoted + "|" + singleQuoted + "|" + doubleQuoted + ")";
+  "(?:" + unquoted + "|" + singleQuoted + "|" + doubleQuoted + "|" + smartSingleQuoted + "|" + smartDoubleQuoted + ")";
 
 const attribute = "(?:\\s+" + attrName + "(?:\\s*=\\s*" + attrValue + ")?)";
 const openTag = "<[A-Za-z][A-Za-z0-9\\-]*" + attribute + "*\\s*\\/?>";
