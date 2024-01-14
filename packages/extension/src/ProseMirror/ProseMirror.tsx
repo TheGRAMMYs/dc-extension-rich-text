@@ -17,6 +17,9 @@ const keymap = require("prosemirror-keymap").keymap;
 // tslint:disable-next-line
 const { sinkListItem } = require("prosemirror-schema-list");
 
+// tslint:disable-next-line
+const { inputRules, allInputRules, smartQuotes } = require("prosemirror-inputrules");
+
 const styles = {
   root: {
     width: "100%",
@@ -69,6 +72,11 @@ class ProseMirror extends React.Component<ProseMirrorProps, ProseMirrorState> {
         ...tablePlugins,
         keymap(getKeys(schema)),
         ...exampleSetup({ schema, menuBar: false }), // can pass mapkeys to suppress some bindings
+        inputRules({ 
+          rules: allInputRules.concat(
+            smartQuotes({ openingDouble: '"', closingDouble: '"', openingSingle: "'", closingSingle: "'" }),
+          ) 
+        })
       ],
     });
   }
