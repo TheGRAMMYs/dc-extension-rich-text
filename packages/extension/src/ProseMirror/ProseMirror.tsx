@@ -50,6 +50,27 @@ function getKeys(schema: any): any {
   };
 }
 
+const replaceSmartQuotesInputRule = inputRules.inputRules({
+  rules: [
+    {
+      regexp: /[\u2018\u2019]/g, // smart single quotes
+      replace: "'"
+    },
+    {
+      regexp: /[\u201C\u201D]/g, // smart double quotes
+      replace: '"'
+    }
+  ]
+});
+
+const buildInputRules = (schema: any) => {
+  let result = [];
+  if (schema.nodes.text) {
+    result.push(replaceSmartQuotesInputRule);
+  }
+  return result;
+}
+
 class ProseMirror extends React.Component<ProseMirrorProps, ProseMirrorState> {
   constructor(props: ProseMirrorProps) {
     super(props);
@@ -72,11 +93,7 @@ class ProseMirror extends React.Component<ProseMirrorProps, ProseMirrorState> {
         ...tablePlugins,
         keymap(getKeys(schema)),
         ...exampleSetup({ schema, menuBar: false }), // can pass mapkeys to suppress some bindings
-        inputRules({ 
-          rules: allInputRules.concat(
-            smartQuotes({ openingDouble: '"', closingDouble: '"', openingSingle: "'", closingSingle: "'" }),
-          ) 
-        })
+        inputRules({ rules: allInputRules.concat(buildInputRules(schema)) }),
       ],
     });
   }
