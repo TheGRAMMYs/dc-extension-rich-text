@@ -61,6 +61,9 @@ export function createMarkdownParser(
 
     const content: string = (token.content || "").trim();
 
+    // fix smart quotes issue
+    content.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+
     if (content.startsWith("<span") && content.endsWith(">")) {
       const dom = new DOMParser().parseFromString(token.content, "text/html");
       const tag = dom.body.firstChild;
