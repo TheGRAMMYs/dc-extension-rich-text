@@ -21,7 +21,7 @@ const { exampleSetup, buildMenuItems } = require("prosemirror-example-setup");
 const { MenuItem } = require("prosemirror-menu");
 
 // tslint:disable-next-line
-const { inputRules, allInputRules } = require("prosemirror-inputrules");
+const { inputRules } = require("prosemirror-inputrules");
 
 
 // tslint:disable-next-line
@@ -35,28 +35,6 @@ export function createBlockMenu(label: string, nodeType: any, attrs: any): any {
     }
   });
 }
-
-const replaceSmartQuotesInputRule = inputRules.inputRules({
-  rules: [
-    {
-      regexp: /[\u2018\u2019]/g, // smart single quotes
-      replace: "'"
-    },
-    {
-      regexp: /[\u201C\u201D]/g, // smart double quotes
-      replace: '"'
-    }
-  ]
-});
-
-const buildInputRules = (basicSchema) => {
-  let result = [];
-  if (basicSchema.nodes.text) {
-    result.push(replaceSmartQuotesInputRule);
-  }
-  return result;
-}
-  
 
 export function createEditor({
   modifySchema,
@@ -88,7 +66,13 @@ export function createEditor({
         : DOMParser.fromSchema(schema).parse(""),
       plugins: [
         exampleSetup({ schema, menuContent: menu.fullMenu }),
-        inputRules({ rules: allInputRules.concat(buildInputRules(schema)) })
+        inputRules({ 
+          smartQuotes: false,
+          openSingleQuote: false,
+          closeSingleQuote: false,
+          openDoubleQuote: false,
+          closeDoubleQuote: false          
+        })
       ]
     })
   };
