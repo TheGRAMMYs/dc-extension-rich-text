@@ -21,7 +21,7 @@ const { exampleSetup, buildMenuItems } = require("prosemirror-example-setup");
 const { MenuItem } = require("prosemirror-menu");
 
 // tslint:disable-next-line
-const { inputRules } = require("prosemirror-inputrules");
+const { inputRules, allInputRules, smartQuotes } = require("prosemirror-inputrules");
 
 
 // tslint:disable-next-line
@@ -67,11 +67,9 @@ export function createEditor({
       plugins: [
         exampleSetup({ schema, menuContent: menu.fullMenu }),
         inputRules({ 
-          smartQuotes: false,
-          openSingleQuote: false,
-          closeSingleQuote: false,
-          openDoubleQuote: false,
-          closeDoubleQuote: false          
+          rules: allInputRules.concat(
+            smartQuotes({ openingDouble: '"', closingDouble: '"', openingSingle: "'", closingSingle: "'" }),
+          ) 
         })
       ]
     })
