@@ -72,8 +72,7 @@ class ProseMirror extends React.Component<ProseMirrorProps, ProseMirrorState> {
         ...tablePlugins,
         keymap(getKeys(schema)),
         ...exampleSetup({ schema, menuBar: false }), // can pass mapkeys to suppress some bindings
-        inputRules({
-          rules: allInputRules.filter(
+        allInputRules.filter(
             (rule: any) =>
               rule !== smartQuotes && // remove smartQuotes rule
               rule !== inputRules.openSingleQuote && // remove openSingleQuote rule
@@ -81,7 +80,6 @@ class ProseMirror extends React.Component<ProseMirrorProps, ProseMirrorState> {
               rule !== inputRules.closeSingleQuote && // remove closeSingleQuote rule
               rule !== inputRules.closeDoubleQuote // remove closeDoubleQuote rule
           ),
-        }),
       ],
     });
   }
