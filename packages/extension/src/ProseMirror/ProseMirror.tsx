@@ -18,7 +18,7 @@ const keymap = require("prosemirror-keymap").keymap;
 const { sinkListItem } = require("prosemirror-schema-list");
 
 // tslint:disable-next-line
-const { inputRules, inputRule, smartQuotes } = require("prosemirror-inputrules");
+const { inputRules, inputRule, allInputRules } = require("prosemirror-inputrules");
 
 const styles = {
   root: {
@@ -39,7 +39,7 @@ export interface ProseMirrorProps extends WithStyles<typeof styles> {
 }
 
 const buildInputRules = () => {
-  let rules = smartQuotes.concat({ openingDouble: '"', closingDouble: '"', openingSingle: "'", closingSingle: "'" }), type
+  let rules = allInputRules.concat({ openDoubleQuote: false, closeDoubleQuote: false, openSingleQuote: false, closeSingleQuote: false }), type
   return inputRules({rules})
 }
 
