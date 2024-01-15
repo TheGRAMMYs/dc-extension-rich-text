@@ -21,10 +21,6 @@ const { exampleSetup, buildMenuItems } = require("prosemirror-example-setup");
 const { MenuItem } = require("prosemirror-menu");
 
 // tslint:disable-next-line
-const { inputRules, allInputRules, smartQuotes } = require("prosemirror-inputrules");
-
-
-// tslint:disable-next-line
 const Node = require("prosemirror-model").Node;
 
 export function createBlockMenu(label: string, nodeType: any, attrs: any): any {
@@ -64,14 +60,7 @@ export function createEditor({
       doc: doc
         ? Node.fromJSON(schema, doc)
         : DOMParser.fromSchema(schema).parse(""),
-      plugins: [
-        exampleSetup({ schema, menuContent: menu.fullMenu }),
-        inputRules({ 
-          rules: allInputRules.concat(
-            smartQuotes({ openingDouble: '"', closingDouble: '"', openingSingle: "'", closingSingle: "'" }),
-          ) 
-        })
-      ]
+      plugins: exampleSetup({ schema, menuContent: menu.fullMenu })
     })
   };
 
