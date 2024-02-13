@@ -107,6 +107,8 @@ const HyperlinkDialog: React.SFC<HyperlinkDialogProps> = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, setValue, onSubmit]);
 
+  const hasTarget = value?.target == '_blank'
+
   return (
     <Dialog
       maxWidth="md"
@@ -150,7 +152,7 @@ const HyperlinkDialog: React.SFC<HyperlinkDialogProps> = (
         <div className="link-target-container">
           <FormLabel>Opens in new tab?</FormLabel>
           <div className="check">
-            <Checkbox value={'_blank'} checked={!!value?.target} onChange={(event) => handleInputChanged("target", value?.target ? '' : event.target.value)}/>
+            <Checkbox value={'_blank'} checked={hasTarget} onChange={(event) => handleInputChanged("target", value?.target ? '' : event.target.value)}/>
             <FormHelperText>Mark this box as checked if you'd like this CTA to open a new tab in the user's browser. Good for off site links.</FormHelperText>
           </div>
         </div>

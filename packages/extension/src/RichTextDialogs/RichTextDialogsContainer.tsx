@@ -10,6 +10,7 @@ import {
   RichTextDialogs,
 } from "@dc-extension-rich-text/common";
 
+
 import AnchorDialog from "../AnchorDialog/AnchorDialog";
 import CodeDialog from "../CodeDialog/CodeDialog";
 import HyperlinkDialog from "../HyperlinkDialog/HyperlinkDialog";
@@ -21,6 +22,7 @@ import { SdkContext } from "unofficial-dynamic-content-ui";
 import { AIPromptDialog } from "../AIPromptDialog";
 import RichTextAlert from "./RichTextAlert";
 
+const BLANK_MARKDOWN = ":blank:"
 interface EditorDialogsProps extends PropsWithChildren<{}> {
   params?: any;
 }
@@ -127,7 +129,11 @@ const RichTextDialogsContainer: React.SFC<EditorDialogsProps> = (
       return handleOpenDialog("code", value) as Promise<string>;
     },
     getHyperlink: (value?: Hyperlink): Promise<Hyperlink> => {
-      return handleOpenDialog("hyperlink", value) as Promise<Hyperlink>;
+      let _value: Hyperlink = {...value} as Hyperlink
+      if (value?.href.startsWith(BLANK_MARKDOWN)) {
+        _value.target = "_blank"
+      }
+      return handleOpenDialog("hyperlink", _value) as Promise<Hyperlink>;
     },
     getImage: (value?: Image): Promise<Image> => {
       return handleOpenDialog("image") as Promise<Image>;
