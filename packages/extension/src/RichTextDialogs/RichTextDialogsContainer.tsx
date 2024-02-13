@@ -129,7 +129,7 @@ const RichTextDialogsContainer: React.SFC<EditorDialogsProps> = (
       return handleOpenDialog("code", value) as Promise<string>;
     },
     getHyperlink: (value?: Hyperlink): Promise<Hyperlink> => {
-      let _value: any = {...value}
+      let _value: Hyperlink = {...value} as Hyperlink
       if (value?.href.startsWith(BLANK_MARKDOWN)) {
         _value.target = "_blank"
       }
